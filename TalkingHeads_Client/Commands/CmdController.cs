@@ -12,7 +12,7 @@ namespace TalkingHeads.Commands
             InitProcess();
         }
 
-        void InitProcess()
+        private void InitProcess()
         {
             if (CMDProcess.StartInfo.RedirectStandardError != true)
             {
@@ -148,6 +148,12 @@ namespace TalkingHeads.Commands
         {
             Terminate();
             CMDProcess.Dispose();
+            GC.SuppressFinalize(this);
+        }
+
+        ~CmdController()
+        {
+            Dispose();
         }
     }
 }
